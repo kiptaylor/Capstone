@@ -23,6 +23,10 @@ function App() {
 	
   // State for feedback on login status 
   const [loginStatus, setLoginStatus] = useState("");
+	
+	
+  // Must do this on front-end
+  Axios.defaults.withCredentials = true;
   
   // To put registration info and send request to back-end to insert user into DB
   const register = () => {
@@ -53,9 +57,12 @@ function App() {
   };
 
   React.useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
+    Axios.get("http://localhost:3000/login").then((response)=>{
+		if(response.data.loggedIn = true) {
+			setLoginStatus(response.data.user[0].email);
+		} 
+		
+	})
   }, []);
 	
 	
