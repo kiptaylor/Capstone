@@ -22,7 +22,7 @@ function App() {
   const [password, setPassword] = useState("");
 	
   // State for feedback on login status 
-  const [loginStatus, setLoginStatus] = useState("");
+  const [loginStatus, setLoginStatus] = useState(false);
 	
 	
   // Must do this on front-end
@@ -45,10 +45,10 @@ function App() {
 		  username:username,
 		  password:password,
 	  }).then((response)=> {
-		  if(response.data.message) {
-			  setLoginStatus(response.data.message);
+		  if(!response.data.auth) {
+			  setLoginStatus(false);
 		  } else {
-			  setLoginStatus(response.data[0].email);
+			  setLoginStatus(true);
 		  }
 		  
 		  console.log(response);
@@ -107,10 +107,14 @@ function App() {
 			
 			
 			/>
-	  		<button onClick= { login }>Register</button>
+	  		<button onClick= { login }>Log In</button>
 	  	</div>
 			
-			<h1>{ loginStatus }</h1>
+			{loginStatus && (
+			
+				<button>Check if authenticated</button>
+			
+			)}
 			
 			
 	  </div>

@@ -8,6 +8,9 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
+// Required dependencies for JWT
+const jwt = require("jsonwebtoken");
+
 
 //bcrypt used for hashing password
 const saltRounds = 10;
@@ -95,6 +98,34 @@ app.get("/login", (req, res)=> {
 	}
 });
 
+// Verify JWT logic
+const verifyJWT = (req, res, next) => {
+	const token = req.headers["x-access-token"];
+	
+	if(!token) {
+		res.send("Need a token...")
+	} else {
+		jwt.verify(token, "jwtsecret", (err,decoded)=>{
+			if(err) {
+				res.json({auth: false, message: "failed to verify token"});
+			} else {
+				req.userId = decoded.id;
+				next();
+			}
+			
+		});
+	}
+};
+
+// GET
+// Verify JWT -> middleware, used to authenticate the request
+app.get("/isUserAuth", verifyJWT, (req, res)=> {
+	
+	res.send("you are authenticated");
+	
+	
+});
+
 // POST (express)
 app.post("/login", (req, res) => {
 	
@@ -114,8 +145,17 @@ app.post("/login", (req, res) => {
 			bcrypt.compare(password, result[0].password, (error, response)=> {
 				
 				if(response) {
+					
+					const id = result[0].id;
+					// instead of "jwtsecret", better practice would be to add .env file
+					const token = jwt.sign({id}, "jwtsecret", {
+						expiresIn: 300,
+					});
+				
 					req.session.user = result;
-					res.send(result);
+					
+					res.json({auth: true, token: token, result: result});
+					
 				} else {
 					res.send({message: "Incorrect user/pass combination!"});
 				}
