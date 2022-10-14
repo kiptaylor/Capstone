@@ -1,18 +1,18 @@
 //Must install in client:
 // React
 // Axios - simple way to replicating http fetch function request
-/*
+
 
 
 import React, {useState} from "react";
 import logo from "./logo.svg";
 import Axios from 'axios';
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import "./App.css";
+//import "./App.css";
 
 import Dashboard from "./Dashboard";
 
-function App() {
+function Login() {
   const [data, setData] = React.useState(null);
 
   // States for Registration
@@ -135,11 +135,4 @@ function App() {
   );
 }
 
-export default App;
-
-*/
-
-
-
-
-
+export default Login;
