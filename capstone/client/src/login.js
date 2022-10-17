@@ -69,18 +69,15 @@ function Login() {
 	
 	
 
-
   return (
-	  
-	  
 	 
 	  
 	  <div className="App">
 	  	<div className="registration">
-	  		<h1>Registration</h1>
-	  		<label>Username</label>
-	  		<input type="text" 
-	  		onChange= {(e)=> {
+	  		<h1>User Registration</h1>
+	  		<label st>Username</label>
+	  		<input className="userbox" type="text" 
+	  		onChange= {(e)=> { 
 	  				setUsernameReg(e.target.value);
   			}}
 			/>
@@ -96,7 +93,7 @@ function Login() {
 	  
 	  
 	  	<div className="login">
-	  		<h1>Log In</h1>
+	  		<h1>Log In Below</h1>
 	  		<input type="text" placeholder="Username..."  
 			onChange= {(e)=> {
 				setUsername(e.target.value);

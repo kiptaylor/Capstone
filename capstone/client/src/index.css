@@ -5,9 +5,46 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("BGKSU.png");
+  
+  
+  
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+   
+}
+.App{
+    width: 40%;
+    height: 400px;
+    text-align: center;
+    margin:auto;
+    margin-top:10%;
+    border-style: solid;
+    padding: 12px 20px;
+    background-color: white;
+   
+}
+.registration{
+  position: relative;
+  top: 10px;
+  letter-spacing: 1px;
+  
+}
+.login{
+  margin-top: 15%;
+  position: relative;
+  bottom: 20px;
+  white-space: 5px;
+  
+  
+}
+label{
+  padding: 5px;
+}
+input[type=text]{
+  margin: 8px 0;
+  
 }
