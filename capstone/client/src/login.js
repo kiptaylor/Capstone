@@ -3,14 +3,11 @@
 // Axios - simple way to replicating http fetch function request
 
 
-
 import React, {useState} from "react";
 import logo from "./logo.svg";
 import Axios from 'axios';
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 //import "./App.css";
-
-import Dashboard from "./Dashboard";
 
 function Login() {
   const [data, setData] = React.useState(null);
@@ -107,15 +104,15 @@ function Login() {
 			
 			/>
 	  		<button onClick= { login }>Log In</button>
-	  	</div>
 			
 			{loginStatus && (
 			
 				<button>Check if authenticated</button>
 			
 			)}
+	  	</div>
 			
-			{ Dashboard }
+		
 			
 	  </div>
 	  
@@ -133,3 +130,8 @@ function Login() {
 }
 
 export default Login;
+
+
+
+
+

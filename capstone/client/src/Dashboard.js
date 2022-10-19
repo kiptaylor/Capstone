@@ -1,5 +1,5 @@
 
-  const Dashboard = () => {
+function Dashboard() {
 	return(
 	
 	<div>
