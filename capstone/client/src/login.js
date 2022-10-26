@@ -6,7 +6,7 @@
 import React, {useState} from "react";
 import logo from "./logo.svg";
 import Axios from 'axios';
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 //import "./App.css";
 
 function Login() {
@@ -22,7 +22,6 @@ function Login() {
 	
   // State for feedback on login status 
   const [loginStatus, setLoginStatus] = useState(false);
-	
 	
   // Must do this on front-end
   Axios.defaults.withCredentials = true;
@@ -48,28 +47,74 @@ function Login() {
 			  setLoginStatus(false);
 		  } else {
 			  setLoginStatus(true);
+			 
 		  }
 		  
-		  console.log(response);
+
+		  
 		  
 	  });
   };
+	
+
+
+	
+	
+// JWT is Authenticated get function
+const userAuthenticated = () => {
+	Axios.get('http://localhost:3001/isUserAuth', { 
+		
+		
+		headers: {
+			"x-access-token": localStorage.getItem("token"),
+		},
+			
+			
+		}).then((response) => {
+			console.log(response);
+		});
+	};
 
   React.useEffect(() => {
     Axios.get("http://localhost:3000/login").then((response)=>{
 		if(response.data.loggedIn = true) {
-			setLoginStatus(response.data.user[0].email);
+			console.log(response);
+			localStorage.setItem("token", response.data.token);
+			//setLoginStatus(true);
+			console.log(loginStatus);
 		} 
 		
 	})
   }, []);
+
+const goDash = () => {
 	
+	 Axios.get("http://localhost:3000/login").then((response)=>{
+		if(response.data.loggedIn = true) {
+			console.log(response);
+			localStorage.setItem("token", response.data.token);
+			setLoginStatus(true);
+	
+		} 
+		
+	});
+	
+
+
+
+};
+
 	
 
   return (
 	 
-	  
+	
 	  <div className="App">
+	
+	  
+	
+
+	
 	  	<div className="registration">
 	  		<h1>User Registration</h1>
 	  		<label st>Username</label>
@@ -104,26 +149,18 @@ function Login() {
 			
 			/>
 	  		<button onClick= { login }>Log In</button>
+			{loginStatus && (<Navigate to="/Dashboard"/>)}
 			
-			{loginStatus && (
+		
 			
-				<button>Check if authenticated</button>
-			
-			)}
+		
 	  	</div>
 			
 		
 			
 	  </div>
 	  
-	  
-   // <div className="App">
-     // <header className="App-header">
-       // <img src={logo} className="App-logo" alt="logo" />
-        //<p>{!data ? "Loading..." : data}</p>
-     // </header>
-    // </div>
-	  
+
 	  
 	  
   );

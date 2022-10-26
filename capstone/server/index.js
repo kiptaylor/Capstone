@@ -41,8 +41,8 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false,
 	cookie: {
-		// session expires after 12 hours (in ms)
-		expires: 60*60*12,
+		// session expires after 12 hours (in ms) -> revert back to 60*60*12
+		expires: 60 * 60 * 12,
 	},
 }));
 
@@ -121,7 +121,9 @@ const verifyJWT = (req, res, next) => {
 // Verify JWT -> middleware, used to authenticate the request
 app.get("/isUserAuth", verifyJWT, (req, res)=> {
 	
-	res.send("you are authenticated");
+	res.json({auth: true, message: "user authenticated"});
+	
+	
 	
 	
 });
@@ -157,12 +159,12 @@ app.post("/login", (req, res) => {
 					res.json({auth: true, token: token, result: result});
 					
 				} else {
-					res.send({message: "Incorrect user/pass combination!"});
+					res.json({auth: false, message: "wrong user/pass combination"});
 				}
 			});
 			
 		} else {
-			res.send({message: "User does not exist!"});
+			res.json({auth: false, message: "No user exists"});
 		}
 		}
 	);
